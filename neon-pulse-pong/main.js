@@ -2,6 +2,8 @@ const canvas = document.getElementById('pong');
 const ctx = canvas.getContext('2d');
 const speedSelect = document.getElementById('speed');
 
+const SPEED_PRESETS = ['0.6', '0.8', '1', '1.2', '1.5'];
+
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 const PADDLE_WIDTH = 14;
@@ -196,14 +198,35 @@ function applySpeedMultiplier() {
   }
 }
 
+function setSpeedPreset(index) {
+  const preset = SPEED_PRESETS[index];
+  if (!preset) return;
+  speedSelect.value = preset;
+  applySpeedMultiplier();
+  if (!running) {
+    resetGame(true);
+  }
+}
+
 window.addEventListener('keydown', (event) => {
   keys.add(event.code);
+
   if (event.code === 'Space') {
     toggleGame();
     event.preventDefault();
+    return;
   }
+
   if (event.code === 'KeyR') {
     resetGame();
+    return;
+  }
+
+  if (event.code.startsWith('Digit')) {
+    const idx = Number(event.code.replace('Digit', '')) - 1;
+    setSpeedPreset(idx);
+    event.preventDefault();
+    return;
   }
 });
 
@@ -216,6 +239,12 @@ if (speedSelect) {
     applySpeedMultiplier();
     if (!running) {
       resetGame(true);
+    }
+  });
+
+  speedSelect.addEventListener('keydown', (event) => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(event.code)) {
+      event.preventDefault();
     }
   });
 }
