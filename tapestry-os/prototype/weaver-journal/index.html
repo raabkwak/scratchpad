@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tapestry OS · Weaver Journal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <p class="eyebrow">Tapestry OS Prototype</p>
+        <h1>Weaver Journal</h1>
+        <p class="lede">
+          Capture a moment, link it to the humans, artifacts, and principles involved, and watch
+          the tapestry update in real time.
+        </p>
+      </header>
+
+      <section class="panel input-panel">
+        <form id="entryForm">
+          <div class="field-grid">
+            <label>
+              Person
+              <input type="text" id="person" placeholder="e.g., Raab" required />
+            </label>
+            <label>
+              Artifact
+              <input type="text" id="artifact" placeholder="e.g., Neon Pulse Pong" required />
+            </label>
+            <label>
+              Principle
+              <input type="text" id="principle" placeholder="e.g., Transparency" required />
+            </label>
+            <label>
+              Tags (comma separated)
+              <input type="text" id="tags" placeholder="e.g., launch, trust" />
+            </label>
+          </div>
+          <label class="full">
+            Narrative
+            <textarea id="narrative" rows="3" placeholder="What happened and why does it matter?" required></textarea>
+          </label>
+          <div class="actions">
+            <button type="reset" class="ghost">Clear</button>
+            <button type="submit">Weave moment</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="dashboard">
+        <div class="panel timeline" aria-live="polite">
+          <div class="panel-head">
+            <h2>Timeline</h2>
+            <span id="entryCount">0 entries</span>
+          </div>
+          <ul id="timeline"></ul>
+        </div>
+
+        <div class="panel graph">
+          <div class="panel-head">
+            <h2>Relationship pulse</h2>
+            <button id="exportBtn" class="ghost">Export JSON</button>
+          </div>
+          <canvas id="graphCanvas" width="420" height="420" aria-label="relationship graph"></canvas>
+          <div class="stats" id="stats"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="exportDialog">
+      <form method="dialog">
+        <h3>Exported JSON</h3>
+        <textarea id="exportPayload" readonly></textarea>
+        <div class="actions">
+          <button value="cancel" class="ghost">Close</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="main.js" type="module"></script>
+  </body>
+</html>
