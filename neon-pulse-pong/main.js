@@ -1,5 +1,6 @@
 const canvas = document.getElementById('pong');
 const ctx = canvas.getContext('2d');
+const speedSelect = document.getElementById('speed');
 
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
@@ -8,13 +9,14 @@ const PADDLE_HEIGHT = 90;
 const PADDLE_MARGIN = 30;
 const BALL_SIZE = 16;
 const PADDLE_SPEED = 7;
-const BASE_BALL_SPEED = 5;
-const SPEED_INCREMENT = 0.4;
+const BASE_BALL_SPEED = 4.5;
+const SPEED_INCREMENT = 0.35;
 const WIN_SCORE = 10;
 
 const keys = new Set();
 let animationId;
 let running = false;
+let speedMultiplier = parseFloat(speedSelect?.value ?? '1');
 
 const left = {
   x: PADDLE_MARGIN,
@@ -31,15 +33,19 @@ const right = {
 const ball = {
   x: WIDTH / 2,
   y: HEIGHT / 2,
-  vx: BASE_BALL_SPEED,
-  vy: BASE_BALL_SPEED * 0.5,
+  vx: 0,
+  vy: 0,
 };
+
+function baseSpeed() {
+  return BASE_BALL_SPEED * speedMultiplier;
+}
 
 function resetBall(direction = 1) {
   ball.x = WIDTH / 2;
   ball.y = HEIGHT / 2;
   const angle = (Math.random() * Math.PI) / 3 - Math.PI / 6; // -30 to +30 deg
-  const speed = BASE_BALL_SPEED + Math.random();
+  const speed = baseSpeed() + Math.random() * 0.75;
   ball.vx = speed * Math.cos(angle) * direction;
   ball.vy = speed * Math.sin(angle);
 }
@@ -49,7 +55,6 @@ function clampPaddle(paddle) {
 }
 
 function update() {
-  // Player input
   if (keys.has('KeyW')) left.y -= PADDLE_SPEED;
   if (keys.has('KeyS')) left.y += PADDLE_SPEED;
   if (keys.has('ArrowUp')) right.y -= PADDLE_SPEED;
@@ -57,16 +62,13 @@ function update() {
   clampPaddle(left);
   clampPaddle(right);
 
-  // Move ball
   ball.x += ball.vx;
   ball.y += ball.vy;
 
-  // Walls
   if (ball.y <= 0 || ball.y + BALL_SIZE >= HEIGHT) {
     ball.vy *= -1;
   }
 
-  // Paddle collisions
   const collideLeft =
     ball.x <= left.x + PADDLE_WIDTH &&
     ball.x >= left.x &&
@@ -83,15 +85,14 @@ function update() {
     const paddle = collideLeft ? left : right;
     const relativeIntersectY = paddle.y + PADDLE_HEIGHT / 2 - (ball.y + BALL_SIZE / 2);
     const normalized = relativeIntersectY / (PADDLE_HEIGHT / 2);
-    const bounceAngle = normalized * (Math.PI / 4); // 45° max
+    const bounceAngle = normalized * (Math.PI / 4);
     const direction = collideLeft ? 1 : -1;
-    const speed = Math.hypot(ball.vx, ball.vy) + SPEED_INCREMENT;
+    const speed = Math.min(10, Math.hypot(ball.vx, ball.vy) + SPEED_INCREMENT);
 
     ball.vx = direction * speed * Math.cos(bounceAngle);
     ball.vy = speed * -Math.sin(bounceAngle);
   }
 
-  // Scoring
   if (ball.x < -BALL_SIZE) {
     right.score++;
     resetBall(-1);
@@ -149,7 +150,6 @@ function draw() {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   drawNet();
 
-  // Glow around paddles and ball
   ctx.shadowBlur = 15;
   ctx.shadowColor = '#3bfffe';
   ctx.fillStyle = '#3bfffe';
@@ -175,12 +175,25 @@ function toggleGame() {
   }
 }
 
-function resetGame() {
-  left.score = 0;
-  right.score = 0;
+function resetGame(keepScores = false) {
+  if (!keepScores) {
+    left.score = 0;
+    right.score = 0;
+  }
   left.y = right.y = HEIGHT / 2 - PADDLE_HEIGHT / 2;
   resetBall(Math.random() > 0.5 ? 1 : -1);
   draw();
+}
+
+function applySpeedMultiplier() {
+  speedMultiplier = parseFloat(speedSelect.value);
+  const currentSpeed = Math.hypot(ball.vx, ball.vy);
+  if (currentSpeed > 0) {
+    const desired = baseSpeed();
+    const factor = desired / currentSpeed;
+    ball.vx *= factor;
+    ball.vy *= factor;
+  }
 }
 
 window.addEventListener('keydown', (event) => {
@@ -197,5 +210,14 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
   keys.delete(event.code);
 });
+
+if (speedSelect) {
+  speedSelect.addEventListener('change', () => {
+    applySpeedMultiplier();
+    if (!running) {
+      resetGame(true);
+    }
+  });
+}
 
 resetGame();

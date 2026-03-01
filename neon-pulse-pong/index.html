@@ -12,6 +12,18 @@
         <h1>Neon Pulse Pong</h1>
         <p>Space = start/pause · R = reset · W/S and ↑/↓ to move</p>
       </header>
+
+      <section class="controls" aria-label="game options">
+        <label for="speed">Ball speed</label>
+        <select id="speed">
+          <option value="0.6">Chill (40%)</option>
+          <option value="0.8">Classic (60%)</option>
+          <option value="1" selected>Arcade (default)</option>
+          <option value="1.2">Turbo (120%)</option>
+          <option value="1.5">Chaos (150%)</option>
+        </select>
+      </section>
+
       <canvas id="pong" width="900" height="500"></canvas>
       <footer>
         <span>Made for the Scratchpad experiments</span>
