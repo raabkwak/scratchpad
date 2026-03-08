@@ -13,35 +13,123 @@
         <p class="eyebrow">Tapestry OS Prototype</p>
         <h1>Weaver Journal</h1>
         <p class="lede">
-          Capture a moment, link it to the humans, artifacts, and principles involved, and watch
-          the tapestry update in real time.
+          Capture a moment, link every entity and asset involved, and watch the context graph stay
+          human- and AI-readable.
         </p>
       </header>
 
       <section class="panel input-panel">
         <form id="entryForm">
-          <div class="field-grid">
-            <label>
-              Person
-              <input type="text" id="person" placeholder="e.g., Raab" required />
-            </label>
-            <label>
-              Artifact
-              <input type="text" id="artifact" placeholder="e.g., Neon Pulse Pong" required />
-            </label>
-            <label>
-              Principle
-              <input type="text" id="principle" placeholder="e.g., Transparency" required />
-            </label>
-            <label>
-              Tags (comma separated)
-              <input type="text" id="tags" placeholder="e.g., launch, trust" />
-            </label>
+          <div class="form-section">
+            <div class="section-head">
+              <h2>Context anchors</h2>
+              <p>People, workspaces, artifacts, rituals, and automations that touched this moment.</p>
+            </div>
+            <div class="field-grid">
+              <label>
+                Person
+                <input type="text" id="person" placeholder="e.g., Raab" required />
+              </label>
+              <label>
+                Workspace / Initiative
+                <input type="text" id="workspace" placeholder="e.g., Tapestry Core" />
+              </label>
+              <label>
+                Artifact
+                <input type="text" id="artifact" placeholder="e.g., Weaver Journal" required />
+              </label>
+              <label>
+                Principle
+                <input type="text" id="principle" placeholder="e.g., Transparent cognition" required />
+              </label>
+              <label>
+                Event / Ritual
+                <input type="text" id="eventName" placeholder="e.g., Daily weave" />
+              </label>
+              <label>
+                Event window
+                <input type="text" id="eventWindow" placeholder="e.g., 08:00–08:30 UTC" />
+              </label>
+              <label>
+                Thread / Channel
+                <input type="text" id="thread" placeholder="e.g., Matrix #loom" />
+              </label>
+              <label>
+                Automation / Agent
+                <input type="text" id="automation" placeholder="e.g., Context Curator" />
+              </label>
+            </div>
           </div>
+
+          <div class="form-section">
+            <div class="section-head">
+              <h2>Assets & links</h2>
+              <p>Register the concrete file or URL plus metadata so AI can safely traverse it.</p>
+            </div>
+            <div class="field-grid">
+              <label>
+                Asset label
+                <input type="text" id="assetLabel" placeholder="e.g., Loom walkthrough deck" />
+              </label>
+              <label>
+                Asset URL
+                <input type="url" id="assetUrl" placeholder="https://..." />
+              </label>
+              <label>
+                Provider / Location
+                <input type="text" id="assetProvider" placeholder="e.g., Google Drive" />
+              </label>
+              <label>
+                Media type
+                <input type="text" id="assetType" placeholder="e.g., Slides, Figma, Audio" />
+              </label>
+              <label>
+                Metadata notes
+                <input type="text" id="assetMetadata" placeholder="Checksum, version, etc." />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="section-head">
+              <h2>Ownership & access</h2>
+              <p>Declare who stewards this moment and how it can be used.</p>
+            </div>
+            <div class="field-grid">
+              <label>
+                Owners (comma separated)
+                <input type="text" id="owners" placeholder="e.g., Raab, Lumen" />
+              </label>
+              <label>
+                Visibility
+                <select id="visibility">
+                  <option value="private">Private</option>
+                  <option value="shared">Shared</option>
+                  <option value="public">Public</option>
+                  <option value="policy">Policy-based</option>
+                </select>
+              </label>
+              <label>
+                Consent / policy ref
+                <input type="text" id="policy" placeholder="e.g., policy:loom-default" />
+              </label>
+              <label>
+                AI hints
+                <input type="text" id="aiHints" placeholder="e.g., summarize for weekly brief" />
+              </label>
+            </div>
+          </div>
+
+          <label class="full">
+            Tags (comma separated)
+            <input type="text" id="tags" placeholder="e.g., launch, trust, asset" />
+          </label>
+
           <label class="full">
             Narrative
             <textarea id="narrative" rows="3" placeholder="What happened and why does it matter?" required></textarea>
           </label>
+
           <div class="actions">
             <button type="reset" class="ghost">Clear</button>
             <button type="submit">Weave moment</button>
@@ -63,7 +151,8 @@
             <h2>Relationship pulse</h2>
             <button id="exportBtn" class="ghost">Export JSON</button>
           </div>
-          <canvas id="graphCanvas" width="420" height="420" aria-label="relationship graph"></canvas>
+          <canvas id="graphCanvas" width="440" height="440" aria-label="relationship graph"></canvas>
+          <div class="legend" id="legend"></div>
           <div class="stats" id="stats"></div>
         </div>
       </section>

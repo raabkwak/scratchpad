@@ -60,7 +60,28 @@ h1 {
 .input-panel form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
+}
+
+.form-section {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  background: #ffffff05;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.section-head p {
+  margin: 0.1rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .field-grid {
@@ -80,13 +101,23 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 0.75rem 1rem;
   background: #ffffff08;
   color: var(--ink);
   font-size: 1rem;
+}
+
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 1.5rem) calc(50% - 0.2rem), calc(100% - 1rem) calc(50% - 0.2rem);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
 }
 
 textarea {
@@ -155,6 +186,21 @@ button:not(.ghost) {
   letter-spacing: 0.08em;
 }
 
+.timeline .meta-line {
+  font-size: 0.82rem;
+  color: #b7b4cc;
+  margin-top: 0.3rem;
+}
+
+.timeline .meta-line a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.timeline .meta-line a:hover {
+  text-decoration: underline;
+}
+
 .timeline p {
   margin: 0.5rem 0 0;
   line-height: 1.4;
@@ -172,6 +218,28 @@ button:not(.ghost) {
   border-radius: 20px;
   background: #080714;
   border: 1px solid var(--border);
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.4rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  display: inline-block;
 }
 
 .stats {

@@ -17,6 +17,7 @@ python3 -m http.server 4044
 | --- | --- |
 | `docs/vision/` | North star, ethics charter, success criteria |
 | `docs/architecture/` | System blueprint, data model, integration patterns |
+| `docs/architecture/data-model.md` | Entity/edge schema with ownership + AI metadata |
 | `docs/experience/` | Interaction principles and rituals |
 | `prototype/weaver-journal/` | Minimal runnable slice showing how context gets captured and visualized |
 
