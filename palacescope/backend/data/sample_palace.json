@@ -1,0 +1,61 @@
+{
+  "wings": [
+    {
+      "id": "wing-research",
+      "label": "Research",
+      "halls": [
+        {
+          "id": "hall-infra",
+          "label": "Infrastructure",
+          "rooms": [
+            {
+              "id": "room-vector-ops",
+              "label": "Vector Ops",
+              "memories": [
+                {
+                  "id": "mem-001",
+                  "title": "Cluster sizing debate",
+                  "summary": "Debated replica count for Chroma deployment.",
+                  "timestamp": "2026-04-09T10:01:00Z",
+                  "author": "rk",
+                  "tokens": 642,
+                  "embedding": [0.12, 0.04]
+                },
+                {
+                  "id": "mem-002",
+                  "title": "AAAK compression review",
+                  "summary": "Logged trade-offs between raw mode and AAAK.",
+                  "timestamp": "2026-04-09T11:12:00Z",
+                  "author": "lumen",
+                  "tokens": 311,
+                  "embedding": [0.08, -0.11]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hall-product",
+          "label": "Product",
+          "rooms": [
+            {
+              "id": "room-ui-pass",
+              "label": "UI Pass",
+              "memories": [
+                {
+                  "id": "mem-003",
+                  "title": "3D navigation sketch",
+                  "summary": "Outlined minimap + breadcrumb concept.",
+                  "timestamp": "2026-04-10T01:22:00Z",
+                  "author": "rk",
+                  "tokens": 205,
+                  "embedding": [-0.04, 0.22]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
